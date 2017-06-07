@@ -3,6 +3,8 @@ require 'rails_helper'
 RSpec.describe Task, type: :model do
   describe '#content' do
     context '空白のとき' do
+      let(:content){Task.new(content: '')}
+
       it 'validでないこと' do
         task = Task.new(content: '')
         task.valid?
