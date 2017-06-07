@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+50.times do |index|
+  status_num = rand(0..2)
+  Task.create(
+    content: "test-content#{index}",
+    status: status_num,
+  )
+end
