@@ -4,6 +4,7 @@
 <!-- 該当件数を表示 -->
 <%= page_entries_info @tasks %>
 <!-- /該当件数を表示 -->
+<%= link_to 'タスクを追加する', new_task_path %>
 <table>
   <thead>
     <tr>
@@ -28,4 +29,4 @@
 
 <br>
 <%= paginate @tasks %>
-<%= link_to 'New Task', new_task_path %>
+
