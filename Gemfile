@@ -56,3 +56,4 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 gem 'rspec-rails'
 gem 'factory_girl_rails'
+gem 'shoulda-matchers'
