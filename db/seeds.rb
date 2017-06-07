@@ -8,8 +8,7 @@
 50.times do |index|
   status_num = rand(0..2)
   Task.create(
-    id: index+1,
-    content:    "test-content#{index}",
+    content: "test-content#{index}",
     status: status_num,
   )
 end
