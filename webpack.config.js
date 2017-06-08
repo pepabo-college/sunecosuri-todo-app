@@ -8,19 +8,31 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve('app/assets/javascripts')
     },
-        module: {
+    module: {
         rules: [
-          {
+         {
             test: /\.js$/,
-                exclude: /(node_modules|bower_components)/,
-                use: {
-                    loader: 'babel-loader',
-                    options: {
+            exclude: /(node_modules|bower_components)/,
+            use: {
+                loader: 'babel-loader',
+                options: {
                     presets: ['env','react']
-                    }
                 }
+            }
+         },
+            {
+                test: /\.png$/,
+                loaders: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        query: {
+                            progressive: true
+                        }
+                    }
+                ],
             }
         ]
     }
-
 }
+

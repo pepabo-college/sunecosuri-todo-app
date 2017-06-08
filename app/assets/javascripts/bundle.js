@@ -63,25 +63,27 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 0);
+/******/ 	return __webpack_require__(__webpack_require__.s = 1);
 /******/ })
 /************************************************************************/
 /******/ ([
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
+module.exports = __webpack_require__.p + "f83df29187c9a59e6349ed96853e4e1f.png";
+
+/***/ }),
+/* 1 */
+/***/ (function(module, exports, __webpack_require__) {
+
 "use strict";
 
 
-var a = ["Hydrogen", "Helium", "Lithium", "Beryl­lium"];
+var _screen = __webpack_require__(0);
 
-var a2 = a.map(function (s) {
-  return s.length;
-});
+var _screen2 = _interopRequireDefault(_screen);
 
-var a3 = a.map(function (s) {
-  return s.length;
-});
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 /***/ })
 /******/ ]);
