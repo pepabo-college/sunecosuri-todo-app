@@ -9635,6 +9635,21 @@ var TaskApp = function (_React$Component) {
             setInterval(this.loadTaskFromServer.bind(this), this.props.pollInterval);
         }
     }, {
+        key: "taskDelete",
+        value: function taskDelete(task) {
+            var _this4 = this;
+
+            _superagent2.default.delete(this.props.url + '/' + task.task.id).accept('application/json').send(task).end(function (err, res) {
+                if (err || !res.ok) {
+                    console.error(_this4.props.url, status, err.toString());
+                } else {
+                    _this4.setState({ data: _this4.state.data.filter(function (data) {
+                            return data.id != task.id;
+                        }) });
+                }
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
@@ -9664,7 +9679,7 @@ var TaskApp = function (_React$Component) {
                             _react2.default.createElement("th", { colSpan: "3" })
                         )
                     ),
-                    _react2.default.createElement(_TaskList2.default, { data: this.state.data })
+                    _react2.default.createElement(_TaskList2.default, { data: this.state.data, onTaskDelete: this.taskDelete.bind(this) })
                 )
             );
         }
@@ -9710,6 +9725,17 @@ var Task = function (_React$Component) {
     }
 
     _createClass(Task, [{
+        key: "handleDelete",
+        value: function handleDelete(e) {
+            e.preventDefault();
+            this.props.onTaskDelete({
+                task: {
+                    id: this.props.id,
+                    status: e.target.value
+                }
+            });
+        }
+    }, {
         key: "render",
         value: function render() {
             return _react2.default.createElement(
@@ -9724,6 +9750,15 @@ var Task = function (_React$Component) {
                     "td",
                     null,
                     this.props.status
+                ),
+                _react2.default.createElement(
+                    "td",
+                    null,
+                    _react2.default.createElement(
+                        "button",
+                        { type: "button", name: "delete", value: "delete", onClick: this.handleDelete.bind(this) },
+                        "\u524A\u9664"
+                    )
                 )
             );
         }
@@ -9846,9 +9881,11 @@ var TaskList = function (_React$Component) {
     _createClass(TaskList, [{
         key: "render",
         value: function render() {
+            var _this2 = this;
+
             var tasks = this.props.data.map(function (task) {
                 return _react2.default.createElement(_Task2.default, { key: task.id, id: task.id,
-                    content: task.content, status: task.status });
+                    content: task.content, status: task.status, onTaskDelete: _this2.props.onTaskDelete });
             });
             return _react2.default.createElement(
                 "tbody",

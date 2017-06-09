@@ -60,6 +60,22 @@ export default class TaskApp extends React.Component {
                     this.props.pollInterval);
     }
 
+    taskDelete(task){
+        request
+            .delete(this.props.url + '/' + task.task.id)
+            .accept('application/json')
+            .send(task)
+            .end((err,res) => {
+                if(err|| !res.ok){
+                    console.error(this.props.url,status,err.toString());
+                }else{
+                    this.setState(
+                        { data: this.state.data.filter( (data) => { return data.id != task.id })}
+                    );
+                }
+            });
+    }
+
     render() {
         return (
             <div className="taskApp">
@@ -73,7 +89,7 @@ export default class TaskApp extends React.Component {
                                 <th colSpan="3"></th>
                             </tr>
                         </thead>
-                        <TaskList data={this.state.data} />
+                        <TaskList data={this.state.data} onTaskDelete={this.taskDelete.bind(this)} />
                     </table>
             </div>
         );
