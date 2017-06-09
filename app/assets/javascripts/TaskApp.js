@@ -1,6 +1,7 @@
 import React from "react";
 import TaskForm from "./TaskForm";
 import TaskList from "./TaskList";
+import request from 'superagent';
 
 export default class TaskApp extends React.Component {
     constructor(props){
@@ -23,8 +24,19 @@ export default class TaskApp extends React.Component {
         const tasks = this.state.data;
         const id = this.state.data.length + 1;
         const newTasks = tasks.concat([Object.assign(task,{id: id})]);
-        console.log(newTasks);
         this.setState({data: newTasks});
+        request
+            .post(this.props.url)
+            .accept('application/json')
+            .send({task: task})
+            .end((err,res) => {
+                if(err || !res.ok){
+                    console.error(this.props.url,
+                        status,err.toString());
+                } else {
+                    this.setState({data: newTasks});
+                }
+            });
     }
 
     render() {
