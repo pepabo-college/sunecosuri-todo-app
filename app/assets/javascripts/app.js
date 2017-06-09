@@ -1,1 +1,9 @@
-import png from '../images/screen.png'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import TaskApp from './TaskApp';
+$( () => {
+    ReactDOM.render(
+        <TaskApp />,
+    document.querySelector('#container')
+  );
+} );
