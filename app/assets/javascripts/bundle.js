@@ -9599,9 +9599,22 @@ var TaskApp = function (_React$Component) {
     }
 
     _createClass(TaskApp, [{
+        key: "loadTaskFromServer",
+        value: function loadTaskFromServer() {
+            var _this2 = this;
+
+            _superagent2.default.get(this.props.url).accept('application/json').end(function (err, res) {
+                if (err || !res.ok) {
+                    console.error(_this2.props.url, status, err.toString());
+                } else {
+                    _this2.setState({ data: res.body });
+                }
+            });
+        }
+    }, {
         key: "handleTaskSubmit",
         value: function handleTaskSubmit(task) {
-            var _this2 = this;
+            var _this3 = this;
 
             var tasks = this.state.data;
             var id = this.state.data.length + 1;
@@ -9609,11 +9622,17 @@ var TaskApp = function (_React$Component) {
             this.setState({ data: newTasks });
             _superagent2.default.post(this.props.url).accept('application/json').send({ task: task }).end(function (err, res) {
                 if (err || !res.ok) {
-                    console.error(_this2.props.url, status, err.toString());
+                    console.error(_this3.props.url, status, err.toString());
                 } else {
-                    _this2.setState({ data: newTasks });
+                    _this3.setState({ data: newTasks });
                 }
             });
+        }
+    }, {
+        key: "componentDidMount",
+        value: function componentDidMount() {
+            this.loadTaskFromServer();
+            setInterval(this.loadTaskFromServer.bind(this), this.props.pollInterval);
         }
     }, {
         key: "render",
@@ -9866,7 +9885,7 @@ var _TaskApp2 = _interopRequireDefault(_TaskApp);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 $(function () {
-    _reactDom2.default.render(_react2.default.createElement(_TaskApp2.default, null), document.querySelector('#container'));
+    _reactDom2.default.render(_react2.default.createElement(_TaskApp2.default, { url: '/tasks', pollInterval: 2000 }), document.querySelector('#container'));
 });
 
 /***/ }),

@@ -20,6 +20,21 @@ export default class TaskApp extends React.Component {
         }
     }
 
+    loadTaskFromServer(){
+        request
+            .get(this.props.url)
+            .accept('application/json')
+            .end((err,res) => {
+                if (err || !res.ok){
+                    console.error(this.props.url,
+                        status,err.toString());
+                }else{
+                    this.setState({data: res.body});
+                }
+            });
+    }
+
+
     handleTaskSubmit(task){
         const tasks = this.state.data;
         const id = this.state.data.length + 1;
@@ -37,6 +52,12 @@ export default class TaskApp extends React.Component {
                     this.setState({data: newTasks});
                 }
             });
+    }
+
+    componentDidMount(){
+        this.loadTaskFromServer();
+        setInterval(this.loadTaskFromServer.bind(this),
+                    this.props.pollInterval);
     }
 
     render() {
