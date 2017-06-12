@@ -8,15 +8,7 @@ export default class TaskApp extends React.Component {
         super(props);
 
         this.state = {
-            data: [
-                {
-                id: 1,
-                content: "test_data",
-                status: "todo",
-                url: ";/tasks/1.json"
-                }
-
-            ]
+            data: []
         }
     }
 
@@ -34,24 +26,21 @@ export default class TaskApp extends React.Component {
             });
     }
 
-
-    handleTaskSubmit(task){
-        const tasks = this.state.data;
-        const id = this.state.data.length + 1;
-        const newTasks = tasks.concat([Object.assign(task,{id: id})]);
-        this.setState({data: newTasks});
-        request
-            .post(this.props.url)
-            .accept('application/json')
-            .send({task: task})
-            .end((err,res) => {
-                if(err || !res.ok){
-                    console.error(this.props.url,
-                        status,err.toString());
-                } else {
-                    this.setState({data: newTasks});
-                }
-            });
+    handleTaskSubmit(task) {
+      var tasks = this.state.data;
+      var newTasks = tasks.concat([task]);
+      this.setState({data: newTasks});
+      request
+        .post(this.props.url)
+        .accept('application/json')
+        .send({task: task})
+        .end((err, res) => {
+            if (err || !res.ok) {
+                  console.error(this.props.url, status, err.toString());
+            } else {
+                this.setState({data: newTasks});
+            }
+        });
     }
 
     componentDidMount(){
@@ -63,6 +52,22 @@ export default class TaskApp extends React.Component {
     taskDelete(task){
         request
             .delete(this.props.url + '/' + task.task.id)
+            .accept('application/json')
+            .send(task)
+            .end((err,res) => {
+                if(err|| !res.ok){
+                    console.error(this.props.url,status,err.toString());
+                }else{
+                    this.setState(
+                        { data: this.state.data.filter( (data) => { return data.id != task.id })}
+                    );
+                }
+            });
+    }
+
+    taskUpdate(task){
+        request
+            .patch(this.props.url + '/' + task.task.id)
             .accept('application/json')
             .send(task)
             .end((err,res) => {
@@ -89,7 +94,10 @@ export default class TaskApp extends React.Component {
                                 <th colSpan="3"></th>
                             </tr>
                         </thead>
-                        <TaskList data={this.state.data} onTaskDelete={this.taskDelete.bind(this)} />
+                        <TaskList data={this.state.data}
+                            onTaskDelete={this.taskDelete.bind(this)} 
+                            onTaskUpdate={this.taskUpdate.bind(this)}
+                        />
                     </table>
             </div>
         );
