@@ -1,5 +1,10 @@
 import React from "react"
 export default class Task extends React.Component {
+    constructor(props) {
+        super(props)
+        this.state = {isEditable: false};
+    }
+
     handleDelete(e){
         e.preventDefault();
         this.props.onTaskDelete({
@@ -19,11 +24,15 @@ export default class Task extends React.Component {
             }
         });
     }
-
+    handleDoubleClick(e){
+        e.preventDefault();
+        this.setState({isEditable: true});
+        console.log(this.state.isEditable);
+    }
     render(){
         return(
             <tr key={this.props.id}>
-                <td>
+                <td onDoubleClick={this.handleDoubleClick.bind(this)}>
                     {this.props.content}
                 </td>
                 <td>
