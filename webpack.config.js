@@ -8,6 +8,7 @@ module.exports = {
         filename: 'bundle.js',
         path: path.resolve('app/assets/javascripts')
     },
+    devtool: 'cheap-module-eval-source-map',
     module: {
         rules: [
          {
