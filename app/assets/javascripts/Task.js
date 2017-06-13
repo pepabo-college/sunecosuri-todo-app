@@ -9,17 +9,23 @@ export default class Task extends React.Component {
         e.preventDefault();
         this.props.onTaskDelete({
             task: {
-                id: this.props.id, 
+                id: this.props.id,
                 status: e.target.value
             }
         });
+    }
+
+    handleEditUpdate(e) {
+        e.preventDefault();
+        this.props.onTaskUpdate({task: {id: this.props.id, content: e.target.value}});
+        this.setState({ isEditable: false });
     }
 
     handleUpdate(e){
         e.preventDefault();
         this.props.onTaskUpdate({
             task: {
-                id: this.props.id, 
+                id: this.props.id,
                 status: e.target.value
             }
         });
@@ -27,13 +33,16 @@ export default class Task extends React.Component {
     handleDoubleClick(e){
         e.preventDefault();
         this.setState({isEditable: true});
-        console.log(this.state.isEditable);
     }
     render(){
         return(
             <tr key={this.props.id}>
                 <td onDoubleClick={this.handleDoubleClick.bind(this)}>
-                    {this.props.content}
+                    {this.state.isEditable ? (
+                        <input type='text' defaultValue={this.props.content} onBlur={this.handleEditUpdate.bind(this)} />
+                    ) : (
+                        this.props.content
+                    )}
                 </td>
                 <td>
                     <select
