@@ -42,6 +42,10 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'factory_girl_rails'
   gem 'rspec-rails'
+  gem 'pry-rails'  # rails console(もしくは、rails c)でirbの代わりにpryを使われる
+  gem 'pry-doc'    # methodを表示
+  gem 'pry-byebug' # デバッグを実施(Ruby 2.0以降で動作する)
+  gem 'pry-stack_explorer' # スタックをたどれる
 end
 
 group :development do
@@ -57,3 +61,4 @@ end
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 gem 'kaminari'
 gem 'jquery-rails'
+gem 'mysql2'

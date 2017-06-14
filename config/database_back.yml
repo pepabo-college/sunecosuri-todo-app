@@ -13,11 +13,11 @@ development:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: todo-app_development
+  database: sample_mysql_development
   pool: 5
-  username: test
-  password: 'password'
-  host: 192.168.50.31
+  username: root
+  password:
+  host: localhost
 
 #development:
 #  <<: *default
@@ -38,18 +38,18 @@ test:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: todo-app_test
+  database: sample_mysql_test
   pool: 5
-  username: test
-  password: 'password'
-  host: 192.168.50.31
+  username: root
+  password:
+  host: localhost
 
 production:
   adapter: mysql2
   encoding: utf8
   reconnect: false
-  database: todo-app_production
+  database: sample_mysql_production
   pool: 5
-  username: test
-  password: 'password'
-  host: 192.168.50.31
+  username: root
+  password:
+  host: localhost
