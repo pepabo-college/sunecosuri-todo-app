@@ -29,7 +29,7 @@ Vagrant.configure("2") do |config|
   config.vm.define 'proxy01' do |proxy01|
     proxy01.vm.hostname = "proxy01.wdp4.com"
     # vmに設定するIPアドレスを指定
-    proxy01.vm.network "private_network", ip: "192.168.50.11"
+    proxy01.vm.network "private_network", ip: "192.168.51.11",virtualbox__intnet: 'internal_net'
     #VMのスペックを指定
     proxy01.vm.provider :virtualbox do |vbox|
       vbox.customize ["modifyvm",:id, "--memory",256]
@@ -40,7 +40,7 @@ Vagrant.configure("2") do |config|
   config.vm.define 'proxy02' do |proxy02|
     proxy02.vm.hostname = "proxy02.wdp4.com"
     # vmに設定するIPアドレスを指定
-    proxy02.vm.network "private_network", ip: "192.168.50.21"
+    proxy02.vm.network "private_network", ip: "192.168.50.12"
     #VMのスペックを指定
     proxy02.vm.provider :virtualbox do |vbox|
       vbox.customize ["modifyvm",:id, "--memory",256]
@@ -52,6 +52,7 @@ Vagrant.configure("2") do |config|
     lb01.vm.hostname = "lb01.wdp4.com"
     # vmに設定するIPアドレスを指定
     lb01.vm.network "private_network", ip: "192.168.50.41"
+    lb01.vm.network "private_network", ip: "192.168.51.41",virtualbox__intnet: 'internal_net'
     #VMのスペックを指定
     lb01.vm.provider :virtualbox do |vbox|
       vbox.customize ["modifyvm",:id, "--memory",256]
@@ -63,6 +64,7 @@ Vagrant.configure("2") do |config|
     lb02.vm.hostname = "lb02.wdp4.com"
     # vmに設定するIPアドレスを指定
     lb02.vm.network "private_network", ip: "192.168.50.42"
+    lb02.vm.network "private_network", ip: "192.168.51.42",virtualbox__intnet: 'internal_net'
     #VMのスペックを指定
     lb02.vm.provider :virtualbox do |vbox|
       vbox.customize ["modifyvm",:id, "--memory",256]
